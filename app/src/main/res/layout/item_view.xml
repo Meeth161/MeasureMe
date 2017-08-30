@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/cv_item"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     android:orientation="vertical"
@@ -54,21 +55,13 @@
                 tools:text="Master Bed room Ground floor" />
 
             <TextView
-                android:id="@+id/tv_details"
+                android:id="@+id/text_view_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:text=""
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/text_view_details"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="4dp"
-                android:textSize="16sp"
-                tools:text="Corner Cutting 5" />
 
         </LinearLayout>
 

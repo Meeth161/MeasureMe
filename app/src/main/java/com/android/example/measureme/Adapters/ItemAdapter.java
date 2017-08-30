@@ -1,5 +1,6 @@
 package com.android.example.measureme.Adapters;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,10 +23,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
 
     List<Product> listItems;
     int act;
+    OnItemClickListener onItemClickListener;
 
-    public ItemAdapter(List<Product> listItems, int act) {
+    public ItemAdapter(List<Product> listItems, int act, OnItemClickListener onItemClickListener) {
         this.listItems = listItems;
         this.act = act;
+        this.onItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -62,6 +65,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
         TextView tvDetails;
         TextView tvItemNumber;
         ImageView ivDelete;
+        CardView cvItem;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -70,6 +74,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
             tvDescription = (TextView) itemView.findViewById(R.id.text_view_description);
             tvDetails = (TextView) itemView.findViewById(R.id.text_view_details);
             tvItemNumber = (TextView) itemView.findViewById(R.id.text_view_item_number);
+            cvItem = (CardView) itemView.findViewById(R.id.cv_item);
+            cvItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int pos = getAdapterPosition();
+                    onItemClickListener.onListItemClicked(pos);
+                }
+            });
 
             if(act == 1) {
                 ivDelete = (ImageView) itemView.findViewById(R.id.iv_delete);
@@ -83,6 +95,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
             }
 
         }
+    }
+
+    public interface OnItemClickListener {
+        void onListItemClicked(int clickedPosition);
     }
 
 }

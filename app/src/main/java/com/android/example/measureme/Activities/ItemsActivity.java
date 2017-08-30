@@ -37,7 +37,7 @@ import static android.R.attr.start;
 import static android.R.attr.type;
 import static com.android.example.measureme.Activities.CustomerDetails.measurement;
 
-public class ItemsActivity extends AppCompatActivity {
+public class ItemsActivity extends AppCompatActivity implements ItemAdapter.OnItemClickListener {
 
     private static final int RC_ADDITEM = 1;
     TextView tvAddItem;
@@ -80,7 +80,7 @@ public class ItemsActivity extends AppCompatActivity {
         productList = measurement.getProductList();
 
         rvItems.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ItemAdapter(productList, 1);
+        adapter = new ItemAdapter(productList, 1, this);
         rvItems.setAdapter(adapter);
         if (adapter.getItemCount() > 0) {
             scrollToBottom();
@@ -116,6 +116,7 @@ public class ItemsActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         intent.putExtra("type", "Bed");
+                        intent.putExtra("number", 1);
                         startActivityForResult(intent, RC_ADDITEM);
                         ad.dismiss();
                     }
@@ -126,6 +127,7 @@ public class ItemsActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         ad.dismiss();
                         intent.putExtra("type", "Curtain");
+                        intent.putExtra("number", 1);
                         startActivityForResult(intent, RC_ADDITEM);
                     }
                 });
@@ -135,6 +137,7 @@ public class ItemsActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         ad.dismiss();
                         intent.putExtra("type", "WallPaper");
+                        intent.putExtra("number", 1);
                         startActivityForResult(intent, RC_ADDITEM);
                     }
                 });
@@ -167,6 +170,7 @@ public class ItemsActivity extends AppCompatActivity {
                                         } else {
                                             a.dismiss();
                                             intent.putExtra("type", etProductType.getText().toString().trim());
+                                            intent.putExtra("number", 1);
                                             startActivityForResult(intent, RC_ADDITEM);
                                         }
                                     }
@@ -223,4 +227,13 @@ public class ItemsActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onListItemClicked(int clickedPosition) {
+        Intent i = new Intent(ItemsActivity.this, AddItemActivity.class);
+        i.putExtra("description", productList.get(clickedPosition).getDescription());
+        i.putExtra("details", productList.get(clickedPosition).getDetails());
+        i.putExtra("number", 2);
+        i.putExtra("position", clickedPosition);
+        startActivityForResult(i, RC_ADDITEM);
+    }
 }

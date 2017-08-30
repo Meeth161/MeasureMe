@@ -14,7 +14,7 @@ import java.util.List;
 
 import static com.android.example.measureme.Activities.MainActivity.products;
 
-public class ItemView extends AppCompatActivity {
+public class ItemView extends AppCompatActivity implements ItemAdapter.OnItemClickListener {
 
     RecyclerView rvItems;
     ItemAdapter adapter;
@@ -26,7 +26,12 @@ public class ItemView extends AppCompatActivity {
 
         rvItems = (RecyclerView) findViewById(R.id.recycler_view_items);
         rvItems.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ItemAdapter(products, 0);
+        adapter = new ItemAdapter(products, 0, this);
         rvItems.setAdapter(adapter);
+    }
+
+    @Override
+    public void onListItemClicked(int clickedPosition) {
+
     }
 }
